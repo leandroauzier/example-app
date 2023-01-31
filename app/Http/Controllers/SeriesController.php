@@ -15,7 +15,7 @@ class SeriesController extends Controller
         $series = Series::all();
         $mensagemSucesso = session('mensagem.sucesso');
 
-        return view('series.index', compact('series'))->with('mensagemSucesso', $mensagemSucesso);
+        return view('series.index')->with('series', $series)->with('mensagemSucesso', $mensagemSucesso);
     }
     public function create()
     {
