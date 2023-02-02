@@ -1,9 +1,17 @@
 <x-layout title="Séries">
+    <div>
     <a href="{{ route('series.create') }}" class="btn btn-dark mb-2">Adicionar</a>
-	<form action="upload.php" method="post" enctype="multipart/form-data">
-	 faça upload em formato de planilha:
-	  <input type="file" name="fileToUpload" id="fileToUpload">
-	</form>
+    </div>
+    <div class="d-flex float-right">   
+        <form action="{{ route('series.upload') }}" method="post" enctype="multipart/form-data">
+        @csrf
+        Ou faça upload em formato de planilha:
+        <input type="file" name="fileToUpload" id="fileToUpload">
+        <br>
+        <input type="submit" value="Enviar Planilha" name="submit" class="btn btn-dark mb-2">
+        </form>
+        <br>
+    </div>
 
 @isset($mensagemSucesso)
 <div class="alert alert-success">    
