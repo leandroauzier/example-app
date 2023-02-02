@@ -1,5 +1,9 @@
 <x-layout title="Séries">
     <a href="{{ route('series.create') }}" class="btn btn-dark mb-2">Adicionar</a>
+	<form action="upload.php" method="post" enctype="multipart/form-data">
+	 faça upload em formato de planilha:
+	  <input type="file" name="fileToUpload" id="fileToUpload">
+	</form>
 
 @isset($mensagemSucesso)
 <div class="alert alert-success">    
