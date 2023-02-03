@@ -9,6 +9,7 @@ use App\Models\Series;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\SeriesImport;
+use App\Http\Controllers\Controller;
 
 class SeriesController extends Controller
 {
@@ -73,46 +74,9 @@ class SeriesController extends Controller
 
     public function upload(Request $request)
     {
-        Excel::import(new SeriesImport, $request->file,null,\Maatwebsite\Excel\Excel::XLSX);
-        
-        return to_route('/series')->with('success', 'All good!');
-        /*
-        $start_row = 1;
-        if(($csv_file = fopen($request, "r")) !== false){
-            while(($read_data = fgetcsv($csv_file,1000,";")) !== false){
-                $column_count = count($read_data);
+	
+        Excel::import(new SeriesImport, $request->file('fileToUpload'),null, \Maatwebsite\Excel\Excel::XLSX);
 
-                $start_row++;
-                for($c= 0; $c < $column_count; $c++){
-                    echo $read_data;
-                }
-            }
-            fclose($csv_file);
-        }
-        var_dump($request->all());
-        /*
-        $serie = Series::create($request->all());
-        $seasons = [];
-        for ($i=1; $i <= $request->seasonsQty; $i++) {
-            $seasons[] = [
-                'series_id' => $serie->id,
-                'number' => $i,
-            ];
-        }
-        Season::insert($seasons);
-
-        $episodes = [];
-        foreach ($serie->seasons as $season) {
-            for ($j = 1; $j <= $request->episodesPerSeason; $j++) {
-                $episodes[] = [
-                    'season_id' => $season->id,
-                    'number' => $j,
-                ];
-            }
-        }
-        Episode::insert($episodes);
-
-        $request->session()->flash('mensagem.sucesso', "Série '{$serie->nome}' adicionada com sucesso");
-        */
+        return to_route('/series')->with('mensagem.successo', "Arquivo Excel Importado com sucesso!");
     }
 }
